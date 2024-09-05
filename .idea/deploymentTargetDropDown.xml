@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="deploymentTargetDropDown">
+    <value>
+      <entry key="app">
+        <State />
+      </entry>
+      <entry key="s()">
+        <State />
+      </entry>
+      <entry key="testBackButtonClick()">
+        <State />
+      </entry>
+      <entry key="testDefaultUI()">
+        <State />
+      </entry>
+      <entry key="testQRCodeScanningResult()">
+        <State />
+      </entry>
+      <entry key="testTextFromMainViewModelUpdate()">
+        <State />
+      </entry>
+    </value>
+  </component>
+</project>
