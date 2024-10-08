@@ -7,18 +7,24 @@ import android.os.Binder;
 import android.os.IBinder;
 import android.util.Log;
 
+<<<<<<< HEAD
 import androidx.core.content.ContextCompat;
 
+=======
+>>>>>>> 624ea7e5a9fedc335bdbd6a0c2528e9501b01f9b
 public class DataProcessingService extends Service {
 
     // tạo binder để kết nối giữa các service và các client
     private final IBinder binder = new LocalBinder();
     private  String reciverData;
 
+<<<<<<< HEAD
     private int statusBarColor;
 
     private int toolbarColor;
 
+=======
+>>>>>>> 624ea7e5a9fedc335bdbd6a0c2528e9501b01f9b
 
     public DataProcessingService() {
     }
@@ -56,6 +62,7 @@ public class DataProcessingService extends Service {
             Log.d("DataProcessingService", "Received data: " + reciverData);
 
   //          String qrData = intent.getStringExtra("qrData");
+<<<<<<< HEAD
  //           String textFromMain = intent.getStringExtra("data");
              statusBarColor = intent.getIntExtra("statusBarColor", ContextCompat.getColor(this, R.color.lavender));
              toolbarColor = intent.getIntExtra("toolbarColor", ContextCompat.getColor(this, R.color.lavender));
@@ -64,6 +71,11 @@ public class DataProcessingService extends Service {
   //          Log.d("DataProcessingService", "Received textFromMain: " + textFromMain);
             Log.d("DataProcessingService", "Received textFromMain1: " + statusBarColor);
             Log.d("DataProcessingService", "Received textFromMain2: " + toolbarColor);
+=======
+            String textFromMain = intent.getStringExtra("data");
+     //       Log.d("DataProcessingService", "Received qrData: " + qrData);
+            Log.d("DataProcessingService", "Received textFromMain: " + textFromMain);
+>>>>>>> 624ea7e5a9fedc335bdbd6a0c2528e9501b01f9b
 
             // Gửi dữ liệu đến ứng dụng khác
         //    sendDataToAnotherApp(qrData, textFromMain);
@@ -90,6 +102,7 @@ public class DataProcessingService extends Service {
         // Thực hiện xử lý dữ liệu
         return reciverData;
     }
+<<<<<<< HEAD
      public int processReceivedDataColorStatus() {
         // Thực hiện xử lý dữ liệu
         return statusBarColor;
@@ -100,4 +113,6 @@ public class DataProcessingService extends Service {
     }
 
 
+=======
+>>>>>>> 624ea7e5a9fedc335bdbd6a0c2528e9501b01f9b
 }

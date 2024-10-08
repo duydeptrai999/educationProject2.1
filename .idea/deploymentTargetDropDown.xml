@@ -5,6 +5,7 @@
       <entry key="app">
         <State />
       </entry>
+<<<<<<< HEAD
       <entry key="s()">
         <State />
       </entry>
@@ -20,6 +21,8 @@
       <entry key="testTextFromMainViewModelUpdate()">
         <State />
       </entry>
+=======
+>>>>>>> 624ea7e5a9fedc335bdbd6a0c2528e9501b01f9b
     </value>
   </component>
 </project>

@@ -27,8 +27,11 @@ import java.util.concurrent.ExecutionException;
 public class MainViewModel extends AndroidViewModel {
 
     private final MutableLiveData<String> scanResult = new MutableLiveData<>();
+<<<<<<< HEAD
     private final MutableLiveData<String> textFrommain = new MutableLiveData<>();
 
+=======
+>>>>>>> 624ea7e5a9fedc335bdbd6a0c2528e9501b01f9b
     private final ListenableFuture<ProcessCameraProvider> cameraProviderFuture;
     private final BarcodeScanner scanner;
 
@@ -42,6 +45,7 @@ public class MainViewModel extends AndroidViewModel {
         return scanResult;
     }
 
+<<<<<<< HEAD
     public void setScanResult(String result) {
         scanResult.setValue(result); // Use setValue() on the main thread
     }
@@ -55,6 +59,8 @@ public class MainViewModel extends AndroidViewModel {
 
 
 
+=======
+>>>>>>> 624ea7e5a9fedc335bdbd6a0c2528e9501b01f9b
     public ListenableFuture<ProcessCameraProvider> getCameraProviderFuture() {
         return cameraProviderFuture;
     }
@@ -80,9 +86,12 @@ public class MainViewModel extends AndroidViewModel {
     public void clearScanResult() {
         scanResult.setValue(null);
     }
+<<<<<<< HEAD
 
     public void setTextFrommain(String result) {
         textFrommain.postValue(result);
     }
 
+=======
+>>>>>>> 624ea7e5a9fedc335bdbd6a0c2528e9501b01f9b
 }

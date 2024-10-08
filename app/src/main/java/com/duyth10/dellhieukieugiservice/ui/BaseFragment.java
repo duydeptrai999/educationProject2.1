@@ -46,7 +46,10 @@ public abstract class BaseFragment extends Fragment {
         }
     };
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 624ea7e5a9fedc335bdbd6a0c2528e9501b01f9b
     @Override
     public void onStart() {
         super.onStart();
@@ -78,7 +81,11 @@ public abstract class BaseFragment extends Fragment {
         }
     }
 
+<<<<<<< HEAD
     public void updateUI(String data) {
+=======
+    protected void updateUI(String data) {
+>>>>>>> 624ea7e5a9fedc335bdbd6a0c2528e9501b01f9b
         if (textFromMain != null) {
             textFromMain.setText(data);
         }
