@@ -95,6 +95,7 @@ public class QRFragment extends Fragment {
         }
 
         binding.iconBack.setOnClickListener(v -> navigateBackToMainApp());
+
     }
 
     private void setupCamera() {
