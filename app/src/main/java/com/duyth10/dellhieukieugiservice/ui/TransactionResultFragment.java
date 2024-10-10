@@ -1,16 +1,11 @@
 package com.duyth10.dellhieukieugiservice.ui;
 
 import android.content.ComponentName;
-<<<<<<< HEAD
 import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
 import android.os.Bundle;
 import android.os.IBinder;
-=======
-import android.content.Intent;
-import android.os.Bundle;
->>>>>>> 624ea7e5a9fedc335bdbd6a0c2528e9501b01f9b
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -21,10 +16,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-<<<<<<< HEAD
 import androidx.appcompat.widget.Toolbar;
-=======
->>>>>>> 624ea7e5a9fedc335bdbd6a0c2528e9501b01f9b
 
 import com.duyth10.dellhieukieugiservice.DataProcessingService;
 import com.duyth10.dellhieukieugiservice.R;
@@ -35,9 +27,7 @@ public class TransactionResultFragment extends BaseFragment {
     private TextView textFromMainMonney;
     private ImageView checkV;
 
-<<<<<<< HEAD
     public int statusbarColor;
-
     public int toolbarcolor;
 
     public final ServiceConnection connection = new ServiceConnection() {
@@ -50,16 +40,15 @@ public class TransactionResultFragment extends BaseFragment {
                 String data = mService.processReceivedData();
                 statusbarColor = mService.processReceivedDataColorStatus();
                 toolbarcolor = mService.processReceivedDataColorToolbar();
-                Log.d("app2text1", "ao ma : " + data);
-                Log.d("app2text1", "ao ma : " + statusbarColor);
-                Log.d("app2text1", "ao ma : " + toolbarcolor);
+                Log.d("app2text1", "Received data: " + data);
+                Log.d("app2text1", "Status bar color: " + statusbarColor);
+                Log.d("app2text1", "Toolbar color: " + toolbarcolor);
 
                 updateUI(data);
                 updateColors();
             } else {
                 Log.d("ServiceConnection", "Service is null");
             }
-            //     Log.d("app2text1", "ao ma : " + textFromMain.getText().toString());
         }
 
         @Override
@@ -68,9 +57,6 @@ public class TransactionResultFragment extends BaseFragment {
         }
     };
 
-
-=======
->>>>>>> 624ea7e5a9fedc335bdbd6a0c2528e9501b01f9b
     @Nullable
     @Override
     public View onCreateView(
@@ -83,8 +69,6 @@ public class TransactionResultFragment extends BaseFragment {
         checkV = view.findViewById(R.id.imageView);
         textFromMainMonney = view.findViewById(R.id.textMonney);
 
-<<<<<<< HEAD
-
         return view;
     }
 
@@ -92,8 +76,6 @@ public class TransactionResultFragment extends BaseFragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-=======
->>>>>>> 624ea7e5a9fedc335bdbd6a0c2528e9501b01f9b
         Bundle args = getArguments();
         if (args != null) {
             String qrData = args.getString("qrData");
@@ -111,53 +93,8 @@ public class TransactionResultFragment extends BaseFragment {
             }
         });
 
-<<<<<<< HEAD
-        if (getActivity() != null) {
-            getActivity().getWindow().setStatusBarColor((statusbarColor));
-        }
-        Toolbar toolbar = getActivity().findViewById(R.id.toolbar1);
-        if (toolbar != null) {
-            toolbar.setBackgroundColor((toolbarcolor));
-        }
-
+        updateColors();
     }
-
-    public void stopDataProcessingService() {
-=======
-        return view;
-    }
-
-    private void stopDataProcessingService() {
->>>>>>> 624ea7e5a9fedc335bdbd6a0c2528e9501b01f9b
-        if (getActivity() != null) {
-            Intent intent = new Intent(getActivity(), DataProcessingService.class);
-            getActivity().stopService(intent);  // Dừng dịch vụ
-        }
-    }
-
-    private void processAndSendData(String qrData, String textFromMain) {
-        Intent intent = new Intent();
-        intent.setComponent(new ComponentName("com.duyth10.dellhieukieugi", "com.duyth10.dellhieukieugi.MainActivity"));
-        intent.putExtra("qrData", qrData);
-        intent.putExtra("textFromMain", textFromMain);
-<<<<<<< HEAD
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
-
-
-        if (intent.resolveActivity(getActivity().getPackageManager()) != null) {
-            startActivity(intent);
-            getActivity().getSupportFragmentManager().popBackStack();
-
-=======
-
-        if (intent.resolveActivity(getActivity().getPackageManager()) != null) {
-            startActivity(intent);
->>>>>>> 624ea7e5a9fedc335bdbd6a0c2528e9501b01f9b
-        } else {
-            Log.d("TransactionResult", "Target Activity or Service not found.");
-        }
-    }
-<<<<<<< HEAD
 
     public void updateColors() {
         if (getActivity() != null) {
@@ -175,9 +112,6 @@ public class TransactionResultFragment extends BaseFragment {
         super.onStart();
         Intent intent = new Intent(getActivity(), DataProcessingService.class);
         getActivity().bindService(intent, connection, Context.BIND_AUTO_CREATE);
-
-//        Log.d("app2text", "ao ma : " + textFromMain.getText().toString());
-
     }
 
     @Override
@@ -197,6 +131,26 @@ public class TransactionResultFragment extends BaseFragment {
             mBound = false;
         }
     }
-=======
->>>>>>> 624ea7e5a9fedc335bdbd6a0c2528e9501b01f9b
+
+    public void stopDataProcessingService() {
+        if (getActivity() != null) {
+            Intent intent = new Intent(getActivity(), DataProcessingService.class);
+            getActivity().stopService(intent);  // Dừng dịch vụ
+        }
+    }
+
+    private void processAndSendData(String qrData, String textFromMain) {
+        Intent intent = new Intent();
+        intent.setComponent(new ComponentName("com.duyth10.dellhieukieugi", "com.duyth10.dellhieukieugi.MainActivity"));
+        intent.putExtra("qrData", qrData);
+        intent.putExtra("textFromMain", textFromMain);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+
+        if (intent.resolveActivity(getActivity().getPackageManager()) != null) {
+            startActivity(intent);
+            getActivity().getSupportFragmentManager().popBackStack();
+        } else {
+            Log.d("TransactionResult", "Target Activity or Service not found.");
+        }
+    }
 }

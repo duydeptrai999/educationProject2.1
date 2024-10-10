@@ -11,48 +11,26 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-<<<<<<< HEAD
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
-=======
-import android.widget.ImageView;
-import android.widget.TextView;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
->>>>>>> 624ea7e5a9fedc335bdbd6a0c2528e9501b01f9b
 import androidx.camera.core.CameraSelector;
 import androidx.camera.core.ImageAnalysis;
 import androidx.camera.core.Preview;
 import androidx.camera.lifecycle.ProcessCameraProvider;
 import androidx.camera.view.PreviewView;
 import androidx.core.content.ContextCompat;
-<<<<<<< HEAD
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
-import androidx.lifecycle.Observer;
-=======
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
->>>>>>> 624ea7e5a9fedc335bdbd6a0c2528e9501b01f9b
 import androidx.lifecycle.ViewModelProvider;
-
 import com.duyth10.dellhieukieugiservice.DataProcessingService;
 import com.duyth10.dellhieukieugiservice.R;
-<<<<<<< HEAD
 import com.duyth10.dellhieukieugiservice.databinding.FragmentQRBinding;
-=======
->>>>>>> 624ea7e5a9fedc335bdbd6a0c2528e9501b01f9b
 import com.duyth10.dellhieukieugiservice.viewmodel.MainViewModel;
-
-import java.util.Objects;
 import java.util.concurrent.ExecutionException;
 
 public class QRFragment extends Fragment {
-<<<<<<< HEAD
     public MainViewModel viewModel;
     public FragmentQRBinding binding;
 
@@ -61,19 +39,11 @@ public class QRFragment extends Fragment {
 
     public int statusbarColor;
     public int toolbarColor;
-=======
-    private MainViewModel viewModel;
-    private PreviewView previewView;
-    private TextView textFromMain;
-
-    private boolean mBound = false;
->>>>>>> 624ea7e5a9fedc335bdbd6a0c2528e9501b01f9b
 
     private final ServiceConnection connection = new ServiceConnection() {
         @Override
         public void onServiceConnected(ComponentName name, IBinder service) {
             DataProcessingService.LocalBinder binder = (DataProcessingService.LocalBinder) service;
-<<<<<<< HEAD
             mService = binder.getService();
             mBound = true;
 
@@ -86,26 +56,10 @@ public class QRFragment extends Fragment {
                 Log.d("app2text1", "Status bar color: " + statusbarColor);
                 Log.d("app2text1", "Toolbar color: " + toolbarColor);
 
-                // Update UI with received data
-                //;;;;;;l/     updateUI(data);
                 updateColors();
             } else {
                 Log.d("ServiceConnection", "Service is null");
             }
-=======
-            DataProcessingService mService = binder.getService();
-            mBound = true;
-            if (mService != null) {
-                String data = mService.processReceivedData();
-                Log.d("app2text1", "ao ma : " + data);
-
-                updateUI(data);
-            }
-            else {
-                Log.d("ServiceConnection", "Service is null");
-            }
-            Log.d("app2text1", "ao ma : " + textFromMain.getText().toString());
->>>>>>> 624ea7e5a9fedc335bdbd6a0c2528e9501b01f9b
         }
 
         @Override
@@ -115,23 +69,14 @@ public class QRFragment extends Fragment {
     };
 
     @Override
-<<<<<<< HEAD
-    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Initialize DataBinding
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_q_r, container, false);
         return binding.getRoot();
-=======
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_q_r, container, false);
->>>>>>> 624ea7e5a9fedc335bdbd6a0c2528e9501b01f9b
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-<<<<<<< HEAD
 
         viewModel = new ViewModelProvider(this).get(MainViewModel.class);
         binding.setViewModel(viewModel);
@@ -140,17 +85,6 @@ public class QRFragment extends Fragment {
         setupCamera();
         observeViewModel();
 
-//        viewModel.getTextFromMain().observe(getViewLifecycleOwner(), new Observer<String>() {
-//            @Override
-//            public void onChanged(String result) {
-//                if (result != null) {
-//                    binding.textFromMainApp.setText(result);
-//                }
-//            }
-//        });
-        //    viewModel.setTextFrommain("djtme");
-
-        // Update status bar and toolbar colors
         if (getActivity() != null) {
             getActivity().getWindow().setStatusBarColor(statusbarColor);
         }
@@ -160,19 +94,7 @@ public class QRFragment extends Fragment {
             toolbar.setBackgroundColor(toolbarColor);
         }
 
-        // Set back button action
         binding.iconBack.setOnClickListener(v -> navigateBackToMainApp());
-=======
-        previewView = view.findViewById(R.id.previewView);
-        textFromMain = view.findViewById(R.id.textFromMainApp);
-        ImageView iconBack = view.findViewById(R.id.iconBack);
-
-        viewModel = new ViewModelProvider(this).get(MainViewModel.class);
-        setupCamera();
-        observeViewModel();
-
-        iconBack.setOnClickListener(v -> navigateBackToMainApp());
->>>>>>> 624ea7e5a9fedc335bdbd6a0c2528e9501b01f9b
     }
 
     private void setupCamera() {
@@ -192,11 +114,7 @@ public class QRFragment extends Fragment {
                 .build();
 
         Preview preview = new Preview.Builder().build();
-<<<<<<< HEAD
         preview.setSurfaceProvider(binding.previewView.getSurfaceProvider());
-=======
-        preview.setSurfaceProvider(previewView.getSurfaceProvider());
->>>>>>> 624ea7e5a9fedc335bdbd6a0c2528e9501b01f9b
 
         ImageAnalysis imageAnalysis = new ImageAnalysis.Builder()
                 .setBackpressureStrategy(ImageAnalysis.STRATEGY_KEEP_ONLY_LATEST)
@@ -210,11 +128,7 @@ public class QRFragment extends Fragment {
     private void observeViewModel() {
         viewModel.getScanResult().observe(getViewLifecycleOwner(), result -> {
             if (result != null && !result.isEmpty()) {
-<<<<<<< HEAD
                 if (!TextUtils.isEmpty(binding.textFromMainApp.getText().toString())) {
-=======
-                if (!TextUtils.isEmpty(textFromMain.getText().toString())) {
->>>>>>> 624ea7e5a9fedc335bdbd6a0c2528e9501b01f9b
                     openResultFragment(result);
                 }
                 viewModel.clearScanResult();
@@ -223,11 +137,7 @@ public class QRFragment extends Fragment {
     }
 
     private void navigateBackToMainApp() {
-<<<<<<< HEAD
         if (!TextUtils.isEmpty(binding.textFromMainApp.getText().toString())) {
-=======
-        if (!TextUtils.isEmpty(textFromMain.getText().toString())) {
->>>>>>> 624ea7e5a9fedc335bdbd6a0c2528e9501b01f9b
             Intent intent = new Intent();
             intent.setComponent(new ComponentName("com.duyth10.dellhieukieugi", "com.duyth10.dellhieukieugi.MainActivity"));
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
@@ -238,11 +148,7 @@ public class QRFragment extends Fragment {
     private void openResultFragment(String qrData) {
         Bundle bundle = new Bundle();
         bundle.putString("qrData", qrData);
-<<<<<<< HEAD
         bundle.putString("textFromMain", binding.textFromMainApp.getText().toString());
-=======
-        bundle.putString("textFromMain", textFromMain.getText().toString());
->>>>>>> 624ea7e5a9fedc335bdbd6a0c2528e9501b01f9b
         TransactionResultFragment resultFragment = new TransactionResultFragment();
         resultFragment.setArguments(bundle);
 
@@ -257,7 +163,6 @@ public class QRFragment extends Fragment {
         Intent intent = new Intent(getActivity(), DataProcessingService.class);
         getActivity().bindService(intent, connection, Context.BIND_AUTO_CREATE);
 
-<<<<<<< HEAD
         Log.d("app2text", "textFromMainApp: " + binding.textFromMainApp.getText().toString());
     }
 
@@ -267,10 +172,6 @@ public class QRFragment extends Fragment {
         if (mBound && mService != null) {
             updateColors();
         }
-=======
-        Log.d("app2text", "ao ma : " + textFromMain.getText().toString());
-
->>>>>>> 624ea7e5a9fedc335bdbd6a0c2528e9501b01f9b
     }
 
     @Override
@@ -285,7 +186,6 @@ public class QRFragment extends Fragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-<<<<<<< HEAD
         binding = null;
     }
 
@@ -301,17 +201,6 @@ public class QRFragment extends Fragment {
         Toolbar toolbar = getActivity().findViewById(R.id.toolbar);
         if (toolbar != null) {
             toolbar.setBackgroundColor(toolbarColor);
-=======
-        if (mBound) {
-            getActivity().unbindService(connection);
-            mBound = false;
-        }
-    }
-
-    private void updateUI(String data) {
-        if (textFromMain != null) {
-            textFromMain.setText(data);
->>>>>>> 624ea7e5a9fedc335bdbd6a0c2528e9501b01f9b
         }
     }
 }
