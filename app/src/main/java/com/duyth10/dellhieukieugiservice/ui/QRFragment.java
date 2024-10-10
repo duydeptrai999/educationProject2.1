@@ -56,6 +56,7 @@ public class QRFragment extends Fragment {
                 Log.d("app2text1", "Status bar color: " + statusbarColor);
                 Log.d("app2text1", "Toolbar color: " + toolbarColor);
 
+                updateUI(data);
                 updateColors();
             } else {
                 Log.d("ServiceConnection", "Service is null");
