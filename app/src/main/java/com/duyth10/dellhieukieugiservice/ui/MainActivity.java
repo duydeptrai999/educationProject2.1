@@ -59,8 +59,8 @@ public class MainActivity extends AppCompatActivity {
         checkPermission();
 
         // Xử lý intent được truyền vào
-        Intent intent = getIntent();
-        handleIntent(intent);
+//        Intent intent = getIntent();
+        handleIntent(getIntent());
 
         // Cài đặt màu cho thanh trạng thái
         Window window = getWindow();
@@ -92,6 +92,29 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        if(intent !=  null) {
+            String textFromMain = intent.getStringExtra("data");
+            int statusBarColor = intent.getIntExtra("statusBarColor", ContextCompat.getColor(this, R.color.lavender));
+            int toolbarColor = intent.getIntExtra("toolbarColor", ContextCompat.getColor(this, R.color.lavender));
+
+            Log.d("MainActivityyyy", "Received textFromMain: " + textFromMain);
+            Log.d("MainActivityyyy", "Received statusBarColor: " + statusBarColor);
+            Log.d("MainActivityyyy", "Received toolbarColor: " + toolbarColor);
+
+            // Khởi động service và truyền dữ liệu vào
+            Intent serviceIntent = new Intent();
+
+            serviceIntent.setComponent(new ComponentName("com.duyth10.dellhieukieugiservice", "com.duyth10.dellhieukieugiservice.DataProcessingService"));
+            serviceIntent.putExtra("dataMain", textFromMain);
+            serviceIntent.putExtra("statusBarColor", statusBarColor);
+            serviceIntent.putExtra("toolbarColor", toolbarColor);
+            startService(serviceIntent);
+        }
+    }
+
     private void reloadServiceData() {
         if (mBound) {
             // Lấy lại dữ liệu đã xử lý từ dịch vụ
@@ -100,7 +123,7 @@ public class MainActivity extends AppCompatActivity {
             // Cập nhật UI hoặc xử lý dữ liệu nếu cần
         }
     }
-
+//  will take first intent sent
     private void handleIntent(Intent intent) {
         if (intent != null) {
             // Lấy dữ liệu từ Intent

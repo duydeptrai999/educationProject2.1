@@ -31,19 +31,21 @@ public class DataProcessingService extends Service {
     @Override
     public void onCreate() {
         super.onCreate();
-        Log.d("app2", "Service Created");
+        Log.d("DataProcessingService", "Service Created");
     }
 
     // onBind dùng để kết nối giữa các thành phần trong app
     @Override
     public IBinder onBind(Intent intent) {
+        Log.d("DataProcessingService", "on binder");
+
         return binder;
     }
 
     // onStartCommand() được gọi khi một Client khởi động Service bằng startService()
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        Log.d("app2", "on start command");
+        Log.d("DataProcessingService", "on start command");
 
         if (intent != null) {
             receiverData = intent.getStringExtra("dataMain");
@@ -62,14 +64,14 @@ public class DataProcessingService extends Service {
 
     @Override
     public boolean onUnbind(Intent intent) {
-        Log.d("app2", "Service Unbound");
+        Log.d("DataProcessingService", "Service Unbound");
         return super.onUnbind(intent);
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
-        Log.d("app2", "Service Destroyed");
+        Log.d("DataProcessingService", "Service Destroyed");
     }
 
     public String processReceivedData() {

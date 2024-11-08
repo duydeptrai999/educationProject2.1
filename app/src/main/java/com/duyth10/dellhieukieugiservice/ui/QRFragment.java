@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
@@ -24,10 +25,12 @@ import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
+
 import com.duyth10.dellhieukieugiservice.DataProcessingService;
 import com.duyth10.dellhieukieugiservice.R;
 import com.duyth10.dellhieukieugiservice.databinding.FragmentQRBinding;
 import com.duyth10.dellhieukieugiservice.viewmodel.MainViewModel;
+
 import java.util.concurrent.ExecutionException;
 
 public class QRFragment extends Fragment {
