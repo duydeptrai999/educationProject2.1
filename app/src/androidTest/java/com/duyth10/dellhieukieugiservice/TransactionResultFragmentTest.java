@@ -15,15 +15,13 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.HandlerThread;
 
 import androidx.fragment.app.testing.FragmentScenario;
 import androidx.test.core.app.ApplicationProvider;
 import androidx.test.ext.junit.rules.ActivityScenarioRule;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
-import androidx.test.rule.ActivityTestRule;
 
+import com.duyth10.dellhieukieugiservice.service.DataProcessingService;
 import com.duyth10.dellhieukieugiservice.ui.MainActivity;
 import com.duyth10.dellhieukieugiservice.ui.TransactionResultFragment;
 

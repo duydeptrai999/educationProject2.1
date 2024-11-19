@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.ServiceConnection;
 import android.os.Bundle;
 import android.os.IBinder;
+import android.os.RemoteException;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -19,14 +20,14 @@ import androidx.camera.core.CameraSelector;
 import androidx.camera.core.ImageAnalysis;
 import androidx.camera.core.Preview;
 import androidx.camera.lifecycle.ProcessCameraProvider;
-import androidx.camera.view.PreviewView;
 import androidx.core.content.ContextCompat;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.duyth10.dellhieukieugiservice.DataProcessingService;
+import com.duyth10.dellhieukieugiservice.IMyAidlInterface;
+import com.duyth10.dellhieukieugiservice.service.DataProcessingService;
 import com.duyth10.dellhieukieugiservice.R;
 import com.duyth10.dellhieukieugiservice.databinding.FragmentQRBinding;
 import com.duyth10.dellhieukieugiservice.viewmodel.MainViewModel;
@@ -39,38 +40,68 @@ public class QRFragment extends Fragment {
 
     private boolean mBound = false;
     private DataProcessingService mService;
+    private IMyAidlInterface mAidlService;
 
     public int statusbarColor;
     public int toolbarColor;
 
+//    private final ServiceConnection connection = new ServiceConnection() {
+//        @Override
+//        public void onServiceConnected(ComponentName name, IBinder service) {
+//            DataProcessingService.LocalBinder binder = (DataProcessingService.LocalBinder) service;
+//            mService = binder.getService();
+//            mBound = true;
+//
+//            if (mService != null) {
+//                String data = mService.processReceivedData();
+//                statusbarColor = mService.processReceivedDataColorStatus();
+//                toolbarColor = mService.processReceivedDataColorToolbar();
+//
+//                Log.d("app2text1", "Data: " + data);
+//                Log.d("app2text1", "Status bar color: " + statusbarColor);
+//                Log.d("app2text1", "Toolbar color: " + toolbarColor);
+//
+//                updateUI(data);
+//                updateColors();
+//            } else {
+//                Log.d("ServiceConnection", "Service is null");
+//            }
+//        }
+//
+//        @Override
+//        public void onServiceDisconnected(ComponentName name) {
+//            mBound = false;
+//        }
+//    };
+
     private final ServiceConnection connection = new ServiceConnection() {
         @Override
         public void onServiceConnected(ComponentName name, IBinder service) {
-            DataProcessingService.LocalBinder binder = (DataProcessingService.LocalBinder) service;
-            mService = binder.getService();
-            mBound = true;
+            mAidlService = IMyAidlInterface.Stub.asInterface(service);
 
-            if (mService != null) {
-                String data = mService.processReceivedData();
-                statusbarColor = mService.processReceivedDataColorStatus();
-                toolbarColor = mService.processReceivedDataColorToolbar();
+            if (mAidlService != null) {
+//                    String data = mAidlService.sendData(    );
+//                    statusbarColor = mAidlService.processReceivedDataColorStatus();
+//                    toolbarColor = mAidlService.processReceivedDataColorToolbar();
 
-                Log.d("app2text1", "Data: " + data);
+                //  Log.d("app2text1", "Data: " + data);
                 Log.d("app2text1", "Status bar color: " + statusbarColor);
                 Log.d("app2text1", "Toolbar color: " + toolbarColor);
 
-                updateUI(data);
-                updateColors();
+//                    updateUI(data);
+//                updateColors();
             } else {
-                Log.d("ServiceConnection", "Service is null");
+                Log.d("ServiceConnection", "AIDL Service is null");
             }
         }
 
         @Override
         public void onServiceDisconnected(ComponentName name) {
+            mAidlService = null;
             mBound = false;
         }
     };
+
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {

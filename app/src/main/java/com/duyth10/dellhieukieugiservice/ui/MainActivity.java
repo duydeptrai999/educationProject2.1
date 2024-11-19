@@ -17,7 +17,7 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentTransaction;
 
-import com.duyth10.dellhieukieugiservice.DataProcessingService;
+import com.duyth10.dellhieukieugiservice.service.DataProcessingService;
 import com.duyth10.dellhieukieugiservice.R;
 
 import java.util.ArrayList;
@@ -32,23 +32,23 @@ public class MainActivity extends AppCompatActivity {
     private DataProcessingService mService;
     private boolean mBound = false;
 
-    private ServiceConnection serviceConnection = new ServiceConnection() {
-        @Override
-        public void onServiceConnected(ComponentName name, IBinder service) {
-            DataProcessingService.LocalBinder binder = (DataProcessingService.LocalBinder) service;
-            mService = binder.getService();
-            mBound = true;
-
-            // Nhận dữ liệu đã xử lý từ dịch vụ
-            String processedData = mService.processReceivedData();
-            Log.d("MainActivity", "Received processed data: " + processedData);
-        }
-
-        @Override
-        public void onServiceDisconnected(ComponentName name) {
-            mBound = false;
-        }
-    };
+//    private ServiceConnection serviceConnection = new ServiceConnection() {
+//        @Override
+//        public void onServiceConnected(ComponentName name, IBinder service) {
+//            DataProcessingService.LocalBinder binder = (DataProcessingService.LocalBinder) service;
+//            mService = binder.getService();
+//            mBound = true;
+//
+//            // Nhận dữ liệu đã xử lý từ dịch vụ
+//            String processedData = mService.processReceivedData();
+//            Log.d("MainActivity", "Received processed data: " + processedData);
+//        }
+//
+//        @Override
+//        public void onServiceDisconnected(ComponentName name) {
+//            mBound = false;
+//        }
+//    };
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -80,14 +80,14 @@ public class MainActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         // Tải lại dữ liệu từ dịch vụ
-        reloadServiceData();
+     //   reloadServiceData();
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
         if (mBound) {
-            unbindService(serviceConnection);
+//            unbindService(serviceConnection);
             mBound = false;
         }
     }
@@ -107,7 +107,7 @@ public class MainActivity extends AppCompatActivity {
             // Khởi động service và truyền dữ liệu vào
             Intent serviceIntent = new Intent();
 
-            serviceIntent.setComponent(new ComponentName("com.duyth10.dellhieukieugiservice", "com.duyth10.dellhieukieugiservice.DataProcessingService"));
+            serviceIntent.setComponent(new ComponentName("com.duyth10.dellhieukieugiservice", "com.duyth10.dellhieukieugiservice.service.DataProcessingService"));
             serviceIntent.putExtra("dataMain", textFromMain);
             serviceIntent.putExtra("statusBarColor", statusBarColor);
             serviceIntent.putExtra("toolbarColor", toolbarColor);
@@ -115,14 +115,14 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    private void reloadServiceData() {
-        if (mBound) {
-            // Lấy lại dữ liệu đã xử lý từ dịch vụ
-            String processedData = mService.processReceivedData();
-            Log.d("MainActivity", "Reloaded data: " + processedData);
-            // Cập nhật UI hoặc xử lý dữ liệu nếu cần
-        }
-    }
+//    private void reloadServiceData() {
+//        if (mBound) {
+//            // Lấy lại dữ liệu đã xử lý từ dịch vụ
+//            String processedData = mService.processReceivedData();
+//            Log.d("MainActivity", "Reloaded data: " + processedData);
+//            // Cập nhật UI hoặc xử lý dữ liệu nếu cần
+//        }
+//    }
 //  will take first intent sent
     private void handleIntent(Intent intent) {
         if (intent != null) {
@@ -137,7 +137,7 @@ public class MainActivity extends AppCompatActivity {
 
             // Khởi động service và truyền dữ liệu vào
             Intent serviceIntent = new Intent();
-            serviceIntent.setComponent(new ComponentName("com.duyth10.dellhieukieugiservice", "com.duyth10.dellhieukieugiservice.DataProcessingService"));
+            serviceIntent.setComponent(new ComponentName("com.duyth10.dellhieukieugiservice", "com.duyth10.dellhieukieugiservice.service.DataProcessingService"));
             serviceIntent.putExtra("dataMain", textFromMain);
             serviceIntent.putExtra("statusBarColor", statusBarColor);
             serviceIntent.putExtra("toolbarColor", toolbarColor);

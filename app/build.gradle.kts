@@ -45,6 +45,9 @@ android {
             }
         }
     }
+    buildFeatures{
+        aidl = true
+    }
 }
 
 // JaCoCo configuration

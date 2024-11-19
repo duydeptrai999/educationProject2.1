@@ -18,7 +18,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
 
-import com.duyth10.dellhieukieugiservice.DataProcessingService;
+import com.duyth10.dellhieukieugiservice.service.DataProcessingService;
 import com.duyth10.dellhieukieugiservice.R;
 
 public class TransactionResultFragment extends BaseFragment {
@@ -30,32 +30,32 @@ public class TransactionResultFragment extends BaseFragment {
     public int statusbarColor;
     public int toolbarcolor;
 
-    public final ServiceConnection connection = new ServiceConnection() {
-        @Override
-        public void onServiceConnected(ComponentName name, IBinder service) {
-            DataProcessingService.LocalBinder binder = (DataProcessingService.LocalBinder) service;
-            DataProcessingService mService = binder.getService();
-            mBound = true;
-            if (mService != null) {
-                String data = mService.processReceivedData();
-                statusbarColor = mService.processReceivedDataColorStatus();
-                toolbarcolor = mService.processReceivedDataColorToolbar();
-                Log.d("app2text1", "Received data: " + data);
-                Log.d("app2text1", "Status bar color: " + statusbarColor);
-                Log.d("app2text1", "Toolbar color: " + toolbarcolor);
-
-                updateUI(data);
-                updateColors();
-            } else {
-                Log.d("ServiceConnection", "Service is null");
-            }
-        }
-
-        @Override
-        public void onServiceDisconnected(ComponentName name) {
-            mBound = false;
-        }
-    };
+//    public final ServiceConnection connection = new ServiceConnection() {
+//        @Override
+//        public void onServiceConnected(ComponentName name, IBinder service) {
+//            DataProcessingService.LocalBinder binder = (DataProcessingService.LocalBinder) service;
+//            DataProcessingService mService = binder.getService();
+//            mBound = true;
+//            if (mService != null) {
+//                String data = mService.processReceivedData();
+//                statusbarColor = mService.processReceivedDataColorStatus();
+//                toolbarcolor = mService.processReceivedDataColorToolbar();
+//                Log.d("app2text1", "Received data: " + data);
+//                Log.d("app2text1", "Status bar color: " + statusbarColor);
+//                Log.d("app2text1", "Toolbar color: " + toolbarcolor);
+//
+//                updateUI(data);
+//                updateColors();
+//            } else {
+//                Log.d("ServiceConnection", "Service is null");
+//            }
+//        }
+//
+//        @Override
+//        public void onServiceDisconnected(ComponentName name) {
+//            mBound = false;
+//        }
+//    };
 
     @Nullable
     @Override
@@ -107,30 +107,30 @@ public class TransactionResultFragment extends BaseFragment {
         }
     }
 
-    @Override
-    public void onStart() {
-        super.onStart();
-        Intent intent = new Intent(getActivity(), DataProcessingService.class);
-        getActivity().bindService(intent, connection, Context.BIND_AUTO_CREATE);
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
-        if (mBound) {
-            getActivity().unbindService(connection);
-            mBound = false;
-        }
-    }
-
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        if (mBound) {
-            getActivity().unbindService(connection);
-            mBound = false;
-        }
-    }
+//    @Override
+//    public void onStart() {
+//        super.onStart();
+//        Intent intent = new Intent(getActivity(), DataProcessingService.class);
+//        getActivity().bindService(intent, connection, Context.BIND_AUTO_CREATE);
+//    }
+//
+//    @Override
+//    public void onStop() {
+//        super.onStop();
+//        if (mBound) {
+//            getActivity().unbindService(connection);
+//            mBound = false;
+//        }
+//    }
+//
+//    @Override
+//    public void onDestroyView() {
+//        super.onDestroyView();
+//        if (mBound) {
+//            getActivity().unbindService(connection);
+//            mBound = false;
+//        }
+//    }
 
     public void stopDataProcessingService() {
         if (getActivity() != null) {
